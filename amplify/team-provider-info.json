@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-medkitdoctor-dev-185224-authRole",
+      "UnauthRoleArn": "arn:aws:iam::432844486855:role/amplify-medkitdoctor-dev-185224-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::432844486855:role/amplify-medkitdoctor-dev-185224-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-medkitdoctor-dev-185224-deployment",
+      "UnauthRoleName": "amplify-medkitdoctor-dev-185224-unauthRole",
+      "StackName": "amplify-medkitdoctor-dev-185224",
+      "StackId": "arn:aws:cloudformation:us-east-1:432844486855:stack/amplify-medkitdoctor-dev-185224/f4edcb50-cd73-11eb-881d-0eac0ccc6c9d",
+      "AmplifyAppId": "d30tnj6i7mqi6u"
+    },
+    "categories": {
+      "auth": {
+        "medkitdoctora39938ec": {}
+      }
+    }
+  }
+}

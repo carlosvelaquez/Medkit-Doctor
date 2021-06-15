@@ -1,0 +1,10 @@
+{
+  "auth": {
+    "medkitdoctora39938ec": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
+    }
+  }
+}
