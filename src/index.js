@@ -6,6 +6,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import awsconfig from "./aws-exports";
 
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 
 Amplify.configure(awsconfig);

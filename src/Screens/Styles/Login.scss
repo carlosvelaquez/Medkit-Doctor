@@ -1,0 +1,19 @@
+@import "../../mixins";
+
+.login-screen {
+  @include flex-centered;
+  @include full-screen;
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.login-form {
+  @include card;
+
+  width: 100%;
+  max-width: 400px;
+
+  padding: 30px;
+}

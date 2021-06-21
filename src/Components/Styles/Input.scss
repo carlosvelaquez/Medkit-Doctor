@@ -1,0 +1,19 @@
+@import "../../mixins";
+@import "../../variables";
+
+.input {
+  font-size: 1rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 10px;
+  border: 1px solid #0004;
+  transition: 150ms;
+  box-shadow: 0 0 0 $primary-color;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.input:focus {
+  outline: none;
+  border-color: $primary-color;
+  box-shadow: 0 0 3px $primary-color;
+}
