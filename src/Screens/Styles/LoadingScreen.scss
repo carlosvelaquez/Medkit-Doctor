@@ -1,0 +1,9 @@
+@import "../../Styles/mixins";
+@import "../../Styles/variables";
+
+.loading-screen {
+  @include flex-centered;
+  @include full-size;
+
+  height: 100vh;
+}

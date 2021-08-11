@@ -1,0 +1,128 @@
+@import "../../Styles/variables";
+@import "../../Styles/mixins";
+
+.patient-screen {
+  color: var(--text-color);
+}
+
+@for $i from 1 through 10 {
+  .patient-screen div:not(.hidden):nth-child(#{$i}n) {
+    @include animated-entry;
+    animation-delay: #{$i * 50}ms;
+  }
+}
+
+.patient-screen .muted {
+  opacity: 0.5;
+}
+
+.patient-screen h1 {
+  font: 500 32px Montserrat;
+  margin-bottom: 20px;
+  color: var(--text-color);
+}
+
+.patient-screen h2 {
+  font: 500 24px Montserrat;
+  margin-bottom: 18px;
+  color: var(--text-color);
+}
+
+.patient-screen > .section-container {
+  display: flex;
+}
+
+.patient-screen .section {
+  @include card;
+
+  position: relative;
+}
+
+.patient-screen > .section-container > .section > h2 {
+  font: bold 22px Montserrat;
+}
+
+.icon-attribute {
+  margin-bottom: 15px;
+  color: var(--text-color);
+}
+
+.icon-attribute.carded {
+  box-shadow: 0 1px 3px #0001;
+  border-radius: 20px;
+  background-color: #fff;
+  padding: 15px;
+}
+
+.icon-attribute > .title > svg {
+  height: 18px;
+  width: 18px;
+
+  margin-right: 7px;
+  color: var(--secondary-color);
+}
+
+.icon-attribute > .value {
+  margin-left: 25px;
+}
+
+.icon-attribute > .title {
+  @include flex-aligned;
+  font: bold 16px Raleway;
+  margin-bottom: 5px;
+}
+
+.button-row {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.tag-adder {
+  @include flex-aligned;
+
+  position: fixed;
+
+  bottom: 0;
+  left: 0;
+
+  width: 100%;
+
+  background-color: var(--content-background-color);
+
+  box-shadow: 0 0 3px #0002;
+  border-radius: 15px 15px 0 0;
+
+  z-index: 102;
+  overflow: hidden;
+  transition: 250ms cubic-bezier(0.33, 1, 0.68, 1);
+
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+}
+
+.tag-adder > input {
+  border: none;
+  height: 100%;
+  width: 100%;
+  padding: 20px 15px;
+  background-color: #0000;
+  color: var(--text-color);
+}
+
+.tag-adder > input:focus {
+  outline: none;
+}
+
+.tag-adder.visible {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateY(0px);
+}
+
+@media (min-width: $breakpoint-tablet) {
+  .button-row {
+    flex-direction: row;
+  }
+}

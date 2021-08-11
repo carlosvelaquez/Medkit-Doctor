@@ -1,0 +1,63 @@
+$themes: (
+  "light": (
+    "text-color": #212121,
+    "muted-text-color": #9d9d9d,
+    "muted-text-color-transparent": #21212170,
+    "transparent-border-color": #21212110,
+    "primary-color": #4caf50,
+    "primary-color-darker": #2e7d32,
+    "danger-color": #f44336,
+    "page-background-color": #f1f9fa,
+    "content-background-color": #fff,
+    "primary-background-color": #66bb6a,
+    "secondary-background-color": #4dd0e1,
+    "gradient-background": linear-gradient(90deg, #66bb6a 0%, #4dd0e1 100%),
+    "red-gradient-background": linear-gradient(90deg, #ff4b2b 0%, #f06283 100%),
+    "red-gradient-start-color": #ff4b2b,
+    "red-gradient-finish-color": #f06283,
+    "purple-gradient-background":
+      linear-gradient(90deg, #7f00ff 0%, #e100ff 100%),
+    "purple-gradient-start-color": #7f00ff,
+    "purple-gradient-finish-color": #c31ada,
+    "green-gradient-background":
+      linear-gradient(90deg, #56ab2f 0%, #8fc54e 100%),
+    "green-gradient-start-color": #56ab2f,
+    "green-gradient-finish-color": #8fc54e,
+  ),
+  "dark": (
+    "text-color": #e0e0e0,
+    "muted-text-color": #a3a3a3,
+    "muted-text-color-transparent": #fff8,
+    "primary-color": #4caf50,
+    "primary-color-darker": #2e7d32,
+    "danger-color": #f44336,
+    "page-background-color": #212121,
+    "content-background-color": #424242,
+    "primary-background-color": #66bb6a,
+    "secondary-background-color": #181818,
+    "gradient-background": linear-gradient(90deg, #4caf50 0%, #00acc1 100%),
+    "red-gradient-background": linear-gradient(90deg, #ff4b2b 0%, #ff416c 100%),
+    "red-gradient-start-color": #ff4b2b,
+    "red-gradient-finish-color": #ff517a,
+    "purple-gradient-background":
+      linear-gradient(90deg, #7f00ff 0%, #e100ff 100%),
+    "purple-gradient-start-color": #7f00ff,
+    "purple-gradient-finish-color": #c31ada,
+    "green-gradient-background":
+      linear-gradient(90deg, #56ab2f 0%, #8fc54e 100%),
+    "green-gradient-start-color": #56ab2f,
+    "green-gradient-finish-color": #8fc54e,
+  ),
+);
+
+@each $theme-name, $theme-vars in $themes {
+  .App.#{$theme-name} {
+    // define a css variable for each shade
+    @each $name, $value in $theme-vars {
+      --#{$name}: #{$value};
+    }
+  }
+}
+
+$breakpoint-tablet: 768px;
+$breakpoint-laptop: 1024px;

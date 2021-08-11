@@ -1,0 +1,38 @@
+.SocialLoginButton {
+  display: flex;
+  align-items: center;
+
+  flex: 8;
+  transition: 250ms;
+  transform: scale(1);
+
+  padding: 15px;
+
+  border-radius: 10px;
+  border: 1px solid #0003;
+}
+
+.SocialLoginButton:hover {
+  transform: scale(1.025);
+}
+
+.SocialLoginButtonLogo {
+  height: 25px;
+  margin-right: 10px;
+  object-fit: contain;
+}
+
+.SocialLoginButtonText {
+  flex: 1;
+  text-align: center;
+}
+
+.GoogleLoginButton {
+  background-color: white;
+  color: #818181;
+}
+
+.FacebookLoginButton {
+  background-color: #4563a0;
+  color: white;
+}

@@ -1,15 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Amplify, { Auth } from "aws-amplify";
 
-import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import awsconfig from "./aws-exports";
+import "./i18n";
 
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./index.css";
+import "./Styles/index.css";
 
-Amplify.configure(awsconfig);
+import App from "./App";
 
 ReactDOM.render(
   <React.StrictMode>

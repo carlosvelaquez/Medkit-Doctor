@@ -1,0 +1,17 @@
+@import "../../Styles/mixins";
+@import "../../Styles/variables";
+
+.warning-screen {
+  @include flex-centered;
+  @include full-size;
+
+  flex-direction: column;
+  text-align: center;
+  color: var(--text-color);
+}
+
+.warning-screen > svg {
+  width: 200px;
+  height: 200px;
+  color: var(--danger-color);
+}

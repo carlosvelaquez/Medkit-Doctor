@@ -1,0 +1,32 @@
+@import "../../Styles/variables";
+@import "../../Styles/mixins";
+
+.tabbed-section {
+  margin-bottom: 25px;
+  position: relative;
+
+  transition: 250ms;
+}
+
+.tabbed-section > .title {
+  @include card;
+  @include flex-aligned;
+
+  border-radius: 10px 25px 0 0;
+  color: #fff;
+  font-weight: bold;
+  font-family: Raleway;
+  width: fit-content;
+
+  padding: 5px 20px 5px 10px;
+  margin-bottom: 0px;
+}
+
+.tabbed-section > .title > svg {
+  margin-right: 5px;
+}
+
+.tabbed-section > .content {
+  @include card;
+  border-top-left-radius: 0px;
+}

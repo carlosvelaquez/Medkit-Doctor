@@ -1,0 +1,14 @@
+@import "../Styles/variables";
+
+// /* make the customizations */
+// $theme-colors: (
+//   "primary": var(--primary-color),
+//   "danger": $danger-color,
+// );
+
+/* import bootstrap to set changes */
+@import "~bootstrap/scss/bootstrap";
+
+.App {
+  background-color: var(--page-background-color);
+}
