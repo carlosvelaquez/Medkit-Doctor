@@ -1,0 +1,32 @@
+@import "../../Styles/variables";
+@import "../../Styles/mixins";
+
+.patient-row {
+  padding: 15px 20px;
+  display: flex;
+  transition: 250ms;
+}
+
+.patient-row:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 15px -7px rgba($color: #000000, $alpha: 0.25);
+}
+
+.patient-row > .profile-picture {
+  height: 55px;
+  width: 55px;
+  margin-right: 15px;
+
+  border-radius: 100%;
+  overflow: hidden;
+}
+
+.patient-row > .profile-picture > img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.patient-row .name {
+  font: 600 16px Raleway;
+}

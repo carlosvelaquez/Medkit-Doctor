@@ -57,10 +57,14 @@ const Patient = () => {
   const { t } = useTranslation();
   const db = useDatabase();
 
-  const { setScreenName } = useContext(LayoutContext);
+  const { setScreenName, setPadding } = useContext(LayoutContext);
 
   const [tagAdderVisible, setTagAdderVisible] = useState(false);
   const tagAdderInput = useRef();
+
+  useEffect(() => {
+    setPadding(true);
+  }, []);
 
   const { patientId } = useParams();
   const { data, loading, error } = useQueryResult(gql`
@@ -76,33 +80,30 @@ const Patient = () => {
       occupation
       maritalStatus
     }
-
-    consultations(query: {patient: "${patientId}"}){
-      _id,
-      chiefConcern,
-      datetime
-    }
   }`);
 
   console.log(data, error);
 
   if (error) return <ErrorScreen error={error} />;
   if (loading) return <LoadingScreen />;
+  if (!data) return <ErrorScreen error={{ message: "No data was sent" }} />;
 
-  const { patient, consultations } = data;
+  // const { patient, consultations } = data;
+  const { patient } = data;
+  if (!patient) return <ErrorScreen error={{ message: "Patient not found" }} />;
 
   const eventHistory = {};
 
-  consultations.forEach((con) => {
-    const datetime = new Date(con.datetime);
+  // consultations.forEach((con) => {
+  //   const datetime = new Date(con.datetime);
 
-    // Separar la fecha de la hora para ponerlo como llave y sortear en la timeline
-    const dateKey = con.datetime.split("T")[0];
+  //   // Separar la fecha de la hora para ponerlo como llave y sortear en la timeline
+  //   const dateKey = con.datetime.split("T")[0];
 
-    if (!eventHistory[dateKey]) eventHistory[dateKey] = [];
+  //   if (!eventHistory[dateKey]) eventHistory[dateKey] = [];
 
-    eventHistory[dateKey].push({ ...con, datetime });
-  });
+  //   eventHistory[dateKey].push({ ...con, datetime });
+  // });
 
   console.log(eventHistory);
 

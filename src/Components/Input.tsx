@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 
-import { Icon } from "@iconify/react";
+import { Icon, IconifyIcon } from "@iconify/react";
 
 import "./Styles/Input.scss";
 
-export const Input = (props) => {
+export const Input = (props: {
+  icon: IconifyIcon,
+  error: boolean,
+  action: () => void
+}) => {
   const { icon, error, action } = props;
 
   const [focused, setFocused] = useState(false);

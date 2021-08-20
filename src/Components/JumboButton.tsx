@@ -1,8 +1,16 @@
 import React from "react";
-import Icon from "@iconify/react";
+import Icon, { IconifyIcon } from "@iconify/react";
 import DivButton from "./DivButton";
 
 import "./Styles/JumboButton.scss";
+
+type JumboButtonProps = {
+  action: () => void,
+  text: string,
+  icon: IconifyIcon,
+  variant: string,
+  hidden: boolean,
+};
 
 const JumboButton = ({
   action,
@@ -10,7 +18,8 @@ const JumboButton = ({
   icon,
   variant = "red",
   hidden = false,
-}) => {
+} : JumboButtonProps) => {
+
   const color1 = `var(--${variant}-gradient-start-color)`;
   const color2 = `var(--${variant}-gradient-finish-color)`;
 

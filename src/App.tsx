@@ -11,6 +11,7 @@ import Home from "./Screens/Home";
 import Login from "./Screens/Login";
 import Register from "./Screens/Register";
 import Dashboard from "./Screens/Dashboard";
+import Patients from "./Screens/Patients";
 import Patient from "./Screens/Patient";
 import NotFound from "./Screens/NotFound";
 
@@ -40,7 +41,7 @@ const App = () => {
       // Authenticate the user
       const user = await RealmApp.logIn(credentials);
       // `App.currentUser` updates to match the logged in user
-      if (user.id === RealmApp.currentUser.id) setUser(user);
+      if (RealmApp.currentUser && user.id === RealmApp.currentUser.id) setUser(user);
     } catch (err) {
       console.error("Failed to log in", err);
     }
@@ -70,6 +71,7 @@ const App = () => {
 
             <StandardLayout>
               <Route exact path="/" component={Dashboard} />
+              <Route exact path="/patients/" component={Patients} />
               <Route exact path="/patients/:patientId" component={Patient} />
               {/* <Route path="/" component={NotFound} /> */}
             </StandardLayout>

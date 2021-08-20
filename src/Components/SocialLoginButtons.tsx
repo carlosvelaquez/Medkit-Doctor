@@ -7,7 +7,11 @@ import GoogleLogo from "../Assets/Components/SocialLoginButtons/GoogleLogo.png";
 import FacebookLogo from "../Assets/Components/SocialLoginButtons/FacebookLogo.png";
 import "./Styles/SocialLoginButtons.scss";
 
-export const GoogleLoginButton = ({ action }) => {
+type LoginButtonProps = {
+  action: () => void
+}
+
+export const GoogleLoginButton = ({ action } : LoginButtonProps) => {
   const { t } = useTranslation();
 
   return (
@@ -22,7 +26,7 @@ export const GoogleLoginButton = ({ action }) => {
   );
 };
 
-export const FacebookLoginButton = ({ action }) => {
+export const FacebookLoginButton = ({ action } : LoginButtonProps) => {
   const { t } = useTranslation();
 
   return (

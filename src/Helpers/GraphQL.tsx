@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import Axios from "axios";
 import { useTranslation } from "react-i18next";
 
-import { ApolloClient, createHttpLink, InMemoryCache } from "@apollo/client";
+import { ApolloClient, createHttpLink, DocumentNode, InMemoryCache } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 
 import { UserContext } from "../context";
@@ -36,7 +36,7 @@ export const useGraphQL = () => {
 
   if (!user) return;
 
-  return (query) => {
+  return (query : DocumentNode) => {
     console.log("gql query", typeof query, query);
 
     return Axios.request({
@@ -50,7 +50,7 @@ export const useGraphQL = () => {
   };
 };
 
-export const useQueryResult = (query) => {
+export const useQueryResult = (query : DocumentNode) => {
   const [result, setResult] = useState({ loading: true });
   const [error, setError] = useState();
 
@@ -71,42 +71,42 @@ export const useQueryResult = (query) => {
   return { ...result, error };
 };
 
-export const usePatientInfo = (patientId) => {
-  const { t } = useTranslation();
+// export const usePatientInfo = (patientId: string) => {
+//   const { t } = useTranslation();
 
-  const [patient, setPatient] = useState();
-  const [error, setError] = useState();
+//   const [patient, setPatient] = useState();
+//   const [error, setError] = useState();
 
-  const gql = useGraphQL();
+//   const gql = useGraphQL();
 
-  const queryPatientData = async () => {
-    const {
-      status,
-      data: { data },
-    } = await gql(`
-      {
-          patient(query: {_id: "${patientId}"}) {
-              _id
-              firstName
-              middleName
-              firstSurname
-              secondSurname
-              gender
-              birthDate
-              occupation
-              maritalStatus
-      }
-    }`);
+//   const queryPatientData = async () => {
+//     const {
+//       status,
+//       data: { data },
+//     } = await gql(`
+//       {
+//           patient(query: {_id: "${patientId}"}) {
+//               _id
+//               firstName
+//               middleName
+//               firstSurname
+//               secondSurname
+//               gender
+//               birthDate
+//               occupation
+//               maritalStatus
+//       }
+//     }`);
 
-    if (status === 200) {
-      if (data.patient) setPatient(data.patient);
-      else setError({ message: t("Patient not Found") });
-    }
-  };
+//     if (status === 200) {
+//       if (data.patient) setPatient(data.patient);
+//       else setError({ message: t("Patient not Found") });
+//     }
+//   };
 
-  useEffect(() => {
-    queryPatientData();
-  }, [patientId]);
+//   useEffect(() => {
+//     queryPatientData();
+//   }, [patientId]);
 
-  return { patient, error };
-};
+//   return { patient, error };
+// };

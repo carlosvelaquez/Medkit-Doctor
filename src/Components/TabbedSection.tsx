@@ -1,9 +1,16 @@
 import React from "react";
-import Icon from "@iconify/react";
+import Icon, { IconifyIcon } from "@iconify/react";
 
 import "./Styles/TabbedSection.scss";
 
-const TabbedSection = ({ title, color = "red", icon, children }) => {
+type TabbedSectionProps = {
+  title: string,
+  color: string,
+  icon: IconifyIcon,
+  children: any
+}
+
+const TabbedSection = ({ title, color = "red", icon, children } : TabbedSectionProps) => {
   return (
     <div className="tabbed-section">
       <div

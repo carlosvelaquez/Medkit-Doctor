@@ -24,20 +24,16 @@ $navigator-width: 250px;
   }
 }
 
-.page-content {
+.page-container {
   flex: 1;
-  padding: 20px;
   padding-top: 70px;
   height: 100vh;
   width: 100vw;
 
   overflow-y: auto;
-
-  border-radius: 25px 25px 0 0;
-  // transform: translateX(0px);
 }
 
-.page-content,
+.page-container,
 .menu-button,
 .navigator {
   transition-property: transform;
@@ -46,13 +42,19 @@ $navigator-width: 250px;
   transition-delay: 150ms;
 }
 
-.page-content.offset,
+.page-container.offset,
 // .menu-button.offset,
 .navigator.visible {
   // left: $navigator-width;
   transform: translateX($navigator-width);
   transition-delay: 0ms;
 }
+
+// .page-container.padded {
+//   padding-left: 20px;
+//   padding-right: 20px;
+//   padding-bottom: 20px;
+// }
 
 .no-delay {
   transition-delay: 0ms;
@@ -146,6 +148,16 @@ $navigator-width: 250px;
 
   margin-bottom: 10px;
   width: 100%;
+}
+
+.page-container > .content {
+  background-color: var(--content-background-color);
+  padding: 15px;
+  border-radius: 30px 30px 0 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: calc(100vh - 70px);
+  color: var(--text-color);
 }
 
 @keyframes navlink-animation {
@@ -280,13 +292,13 @@ $navigator-width: 250px;
     transform: none;
   }
 
-  .page-content {
+  .page-container {
     position: static;
     border-radius: 0;
     padding-top: 20px;
   }
 
-  .page-content.offset {
+  .page-container.offset {
     transform: none;
   }
 
@@ -294,6 +306,11 @@ $navigator-width: 250px;
   .navigator > .back-button,
   .navigator-overlay {
     display: none;
+  }
+
+  .page-container > .content {
+    margin: 0 15px;
+    border-radius: 30px;
   }
 }
 

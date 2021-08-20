@@ -12,8 +12,14 @@ import { UserContext } from "../context";
 import Gallery from "./Gallery";
 
 import "./Styles/Timeline.scss";
+import * as Interfaces from "../Helpers/Interfaces";
 
-const Event = ({ event }) => {
+
+type EventProps = {
+  event: Interfaces.Consultation // TODO: More event types here
+}
+
+const Event = ({ event } : EventProps) => {
   const { t } = useTranslation();
   const { __typename } = event;
   const eventDatetime = new Date(event.datetime);
@@ -77,17 +83,24 @@ const Event = ({ event }) => {
   );
 };
 
-export const TimelineCard = ({
-  date = new Date(),
-  events,
-  color = "#f44336",
-}) => {
-  const { t } = useTranslation();
+type VisitProps = {
+  visit: Interfaces.Visit;
+  color: string
+}
 
-  console.log(events);
+export const Visit = ({
+  visit,
+  color
+} : VisitProps) => {
+  const { t } = useTranslation();
+  const {startTime, events} = visit;
+
+  const date = startTime; // TODO: Date only
+
+  console.log(visit);
 
   return (
-    <div className="timeline-card">
+    <div className="visit">
       <div className="header">
         <div className="icon-bubble-wrapper">
           <div className="icon-bubble" style={{ backgroundColor: color }} />
@@ -101,7 +114,7 @@ export const TimelineCard = ({
       {events.map((e) => {
         return <Event event={e} />;
       })}
-      {/* <div className="event">
+      {/* <div className="visit">
         <div className="type-row">
           <div className="type">
             <Icon icon={clipboardPulseOutline} />
@@ -119,7 +132,7 @@ export const TimelineCard = ({
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
         veniam.
       </div>
-      <div className="event">
+      <div className="visit">
         <div className="type-row">
           <div className="type">
             <Icon icon={imageMultipleOutline} />
@@ -143,28 +156,31 @@ export const TimelineCard = ({
   );
 };
 
-export const Timeline = ({ events = {} }) => {
-  const dates = Object.keys(events).sort();
-  console.log(dates);
+type TimelineProps = {
+  visits: Array<Interfaces.Visit>
+}
+
+export const Timeline = ({ visits = [] } : TimelineProps) => {
+  const sortedVisits = visits.sort(); // TODO: Sort by start time
+  console.log(sortedVisits);
 
   // Color interpolation
   const startColor = [128, 1, 252];
   const endColor = [197, 1, 226];
 
   const steps = startColor.map(
-    (c, i) => (endColor[i] - c) / (dates.length - 1)
+    (c, i) => (endColor[i] - c) / (sortedVisits.length - 1)
   );
 
   return (
     <div className="timeline">
-      {dates.map((d, index) => {
-        const rgbValues = steps.map((s, i) => startColor[i] + s * index).join();
+      {sortedVisits.map((v, index) => {
+        const color = `rgb(${steps.map((s, i) => startColor[i] + s * index).join()})`;
 
         return (
-          <TimelineCard
-            date={new Date(d)}
-            events={events[d]}
-            color={`rgb(${rgbValues})`}
+          <Visit
+            visit={v}
+            color={color}
           />
         );
       })}

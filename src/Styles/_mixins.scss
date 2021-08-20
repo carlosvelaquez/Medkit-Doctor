@@ -27,7 +27,7 @@
 @mixin card {
   box-shadow: 0 1px 3px #0001;
   border-radius: 10px;
-  background-color: var(--content-background-color);
+  background-color: var(--card-background-color);
   padding: 15px;
   margin-bottom: 10px;
 }
@@ -84,4 +84,9 @@
   animation-fill-mode: both;
   animation-duration: 250ms;
   // animation-timing-function: cubic-bezier(0.85, 0, 0.15, 1);
+}
+
+@mixin page-content-container {
+  height: calc(100vh - 70px);
+  color: var(--text-color);
 }

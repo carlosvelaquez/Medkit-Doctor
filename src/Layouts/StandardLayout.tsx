@@ -71,7 +71,7 @@ const Navigator = ({ visible = false, delay, setVisible }) => {
         <NavLink
           text={t("Patients")}
           icon={accountIcon}
-          to={`/patients/60da04a66b99db53b41ea167`}
+          to={`/patients`}
           // to="/patients"
           callback={() => setVisible(false)}
         />
@@ -116,6 +116,7 @@ const StandardLayout = ({ children }) => {
   const [navVisible, setNavVisible] = useState(false);
   const [delay, setDelay] = useState(true);
   const [screenName, setScreenName] = useState("Screen Name");
+  const [padding, setPadding] = useState(true);
   const [menuPos, setMenuPos] = useState(0);
   const [lastPos, setLastPos] = useState(0);
 
@@ -137,7 +138,7 @@ const StandardLayout = ({ children }) => {
     //   <Navigator />
     //   <div className="page-content">{children}</div>
     // </div>
-    <LayoutContext.Provider value={{ setScreenName }}>
+    <LayoutContext.Provider value={{ setScreenName, setPadding }}>
       <div className="standard-layout-container">
         <Navigator
           visible={navVisible}
@@ -149,9 +150,9 @@ const StandardLayout = ({ children }) => {
         />
 
         <div
-          className={`page-content ${navVisible ? "offset" : ""} ${
-            !delay ? "no-delay" : ""
-          }`}
+          className={`page-container ${navVisible ? "offset" : ""} ${
+            padding ? "padded" : ""
+          } ${!delay ? "no-delay" : ""}`}
           // onScroll={(e) => {
           //   const nPos = e.target.scrollTop;
           //   setLastPos((lPos) => {
@@ -178,7 +179,7 @@ const StandardLayout = ({ children }) => {
             {t(screenName)}
           </DivButton>
 
-          {children}
+          <div className="content">{children}</div>
         </div>
       </div>
     </LayoutContext.Provider>
