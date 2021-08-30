@@ -4,13 +4,16 @@ import { Icon, IconifyIcon } from "@iconify/react";
 
 import "./Styles/Input.scss";
 
-export const Input = (props: {
-  icon: IconifyIcon,
+type InputProps = {
+  icon: object,
   error: boolean,
+  placeholder: string,
+  type: string,
+  onChange: (React.ChangeEventHandler<HTMLInputElement>)
   action: () => void
-}) => {
-  const { icon, error, action } = props;
+}
 
+export const Input = ({ icon, error, placeholder, type, onChange, action } : InputProps ) => {
   const [focused, setFocused] = useState(false);
 
   return (
@@ -20,7 +23,9 @@ export const Input = (props: {
     >
       {icon ? <Icon className="icon" icon={icon} /> : <></>}
       <input
-        {...props}
+      placeholder={placeholder}
+      type={type}
+      onChange={onChange}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
         onKeyPress={(e) => {

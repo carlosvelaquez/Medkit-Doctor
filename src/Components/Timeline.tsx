@@ -12,11 +12,11 @@ import { UserContext } from "../context";
 import Gallery from "./Gallery";
 
 import "./Styles/Timeline.scss";
-import * as Interfaces from "../Helpers/Interfaces";
+import * as Types from "../Helpers/Types";
 
 
 type EventProps = {
-  event: Interfaces.Consultation // TODO: More event types here
+  event: Types.Consultation // TODO: More event types here
 }
 
 const Event = ({ event } : EventProps) => {
@@ -84,7 +84,7 @@ const Event = ({ event } : EventProps) => {
 };
 
 type VisitProps = {
-  visit: Interfaces.Visit;
+  visit: Types.Visit;
   color: string
 }
 
@@ -157,10 +157,10 @@ export const Visit = ({
 };
 
 type TimelineProps = {
-  visits: Array<Interfaces.Visit>
+  visits: Array<Types.Visit>
 }
 
-export const Timeline = ({ visits = [] } : TimelineProps) => {
+const Timeline = ({ visits = [] } : TimelineProps) => {
   const sortedVisits = visits.sort(); // TODO: Sort by start time
   console.log(sortedVisits);
 
@@ -187,3 +187,5 @@ export const Timeline = ({ visits = [] } : TimelineProps) => {
     </div>
   );
 };
+
+export default Timeline;

@@ -2,6 +2,7 @@ import React, { useEffect, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { gql } from "@apollo/client";
 
+import * as Types from "../Helpers/Types";
 import { useQueryResult } from "../Helpers/GraphQL";
 import { useWindowDimensions } from "../Helpers/Hooks";
 import { LayoutContext, UserContext } from "../context";
@@ -11,9 +12,13 @@ import DivButton from "../Components/DivButton";
 import ErrorScreen from "./ErrorScreen";
 import LoadingScreen from "./LoadingScreen";
 
-import "./Styles/Patients.scss";
+import "./Styles/Patients.scss"
 
-const PatientRow = ({ patient }) => {
+type PatientRowProps = {
+  patient: Types.Patient
+};
+
+const PatientRow = ({ patient }: PatientRowProps) => {
   const {
     _id,
     firstName,
@@ -66,14 +71,14 @@ const Patients = () => {
 
   if (error) return <ErrorScreen error={error} />;
   if (loading) return <LoadingScreen />;
-  if (!data) return <ErrorScreen error={{ message: "No data was sent" }} />;
+  if (!data) return <ErrorScreen error={{name: "NoDataSent", message: "No data was sent" }} />;
 
   const { patients } = data;
 
   return (
     <div className="patients-screen">
       <div className="content-container">
-        {patients.map((p) => (
+        {patients.map((p : Types.Patient) => (
           <PatientRow patient={p} />
         ))}
       </div>

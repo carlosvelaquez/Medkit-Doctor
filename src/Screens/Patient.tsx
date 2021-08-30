@@ -24,34 +24,20 @@ import ringIcon from "@iconify-icons/mdi/ring";
 
 import { useDatabase } from "../realm";
 import { LayoutContext, UserContext } from "../context";
+
+import * as Types from "../Helpers/Types";
 import { useQueryResult } from "../Helpers/GraphQL";
 
 import ErrorScreen from "./ErrorScreen";
-import WarningScreen from "./WarningScreen";
 import LoadingScreen from "./LoadingScreen";
 
 import DivButton from "../Components/DivButton";
 import JumboButton from "../Components/JumboButton";
 import TabbedSection from "../Components/TabbedSection";
-import DynamicContainer from "../Components/DynamicContainer";
-import { Timeline, TimelineCard } from "../Components/Timeline";
+
+import Timeline from "../Components/Timeline";
 
 import "./Styles/Patient.scss";
-
-const GENDER = {
-  0: "Male",
-  1: "Female",
-  3: "Other",
-};
-
-const MARITAL_STATUS = {
-  0: "Single",
-  1: "Married",
-  3: "Divorced",
-  4: "Widowed",
-  5: "Free Union",
-  6: "Other",
-};
 
 const Patient = () => {
   const { t } = useTranslation();
@@ -60,13 +46,13 @@ const Patient = () => {
   const { setScreenName, setPadding } = useContext(LayoutContext);
 
   const [tagAdderVisible, setTagAdderVisible] = useState(false);
-  const tagAdderInput = useRef();
+  const tagAdderInput = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     setPadding(true);
   }, []);
 
-  const { patientId } = useParams();
+  const { patientId } = useParams<{ patientId: string }>();
   const { data, loading, error } = useQueryResult(gql`
   {
     patient(query: {_id: "${patientId}"}) {
@@ -86,26 +72,24 @@ const Patient = () => {
 
   if (error) return <ErrorScreen error={error} />;
   if (loading) return <LoadingScreen />;
-  if (!data) return <ErrorScreen error={{ message: "No data was sent" }} />;
+  if (!data)
+    return (
+      <ErrorScreen
+        error={{ name: "NoDataSent", message: "No data was sent" }}
+      />
+    );
 
   // const { patient, consultations } = data;
-  const { patient } = data;
-  if (!patient) return <ErrorScreen error={{ message: "Patient not found" }} />;
+  const { patient }: { patient: Types.Patient } = data;
+  if (!patient)
+    return (
+      <ErrorScreen
+        error={{ name: "PatientNotFound", message: "Patient not found" }}
+      />
+    );
 
-  const eventHistory = {};
-
-  // consultations.forEach((con) => {
-  //   const datetime = new Date(con.datetime);
-
-  //   // Separar la fecha de la hora para ponerlo como llave y sortear en la timeline
-  //   const dateKey = con.datetime.split("T")[0];
-
-  //   if (!eventHistory[dateKey]) eventHistory[dateKey] = [];
-
-  //   eventHistory[dateKey].push({ ...con, datetime });
-  // });
-
-  console.log(eventHistory);
+  const visits: Array<Types.Visit> = []; //TODO: Fetch visits
+  console.log(visits);
 
   const {
     firstName,
@@ -115,13 +99,12 @@ const Patient = () => {
     gender,
     occupation,
     maritalStatus,
-    background,
   } = patient;
 
   const birthDate = new Date(patient.birthDate);
 
   const age = Math.abs(
-    new Date(new Date() - birthDate).getUTCFullYear() - 1970
+    new Date(new Date().getTime() - birthDate.getTime()).getUTCFullYear() - 1970
   );
 
   return (
@@ -178,7 +161,7 @@ const Patient = () => {
                       <Icon icon={humanMaleFemale} />
                       {t("Gender")}
                     </div>
-                    <div className="value">{t(GENDER[gender])}</div>
+                    <div className="value">{t(Types.Gender[gender])}</div>
                   </div>
                 </Col>
                 <Col xs={12} sm={6} lg={3}>
@@ -197,7 +180,7 @@ const Patient = () => {
                       {t("Marital Status")}
                     </div>
                     <div className="value">
-                      {t(MARITAL_STATUS[maritalStatus])}
+                      {t(Types.MaritalStatus[maritalStatus])}
                     </div>
                   </div>
                 </Col>
@@ -208,9 +191,65 @@ const Patient = () => {
               icon={calendarClock}
               color="purple"
             >
-              <Timeline events={eventHistory} />
+              <Timeline visits={visits} />
             </TabbedSection>
-            <TabbedSection title={t("Medical Background")} icon={accountClock}>
+            <TabbedSection
+              title={t("Visit History")}
+              icon={calendarClock}
+              color="purple"
+            >
+              <Timeline visits={visits} />
+            </TabbedSection>
+            <TabbedSection
+              title={t("Visit History")}
+              icon={calendarClock}
+              color="purple"
+            >
+              <Timeline visits={visits} />
+            </TabbedSection>
+            <TabbedSection
+              title={t("Visit History")}
+              icon={calendarClock}
+              color="purple"
+            >
+              <Timeline visits={visits} />
+            </TabbedSection>
+            <TabbedSection
+              title={t("Visit History")}
+              icon={calendarClock}
+              color="purple"
+            >
+              <Timeline visits={visits} />
+            </TabbedSection>
+            <TabbedSection
+              title={t("Visit History")}
+              icon={calendarClock}
+              color="purple"
+            >
+              <Timeline visits={visits} />
+            </TabbedSection>
+            <TabbedSection
+              title={t("Visit History")}
+              icon={calendarClock}
+              color="purple"
+            >
+              <Timeline visits={visits} />
+            </TabbedSection>
+            <TabbedSection
+              title={t("Visit History")}
+              icon={calendarClock}
+              color="purple"
+            >
+              <Timeline visits={visits} />
+            </TabbedSection>
+            <TabbedSection
+              title={t("Visit History")}
+              icon={calendarClock}
+              color="purple"
+            >
+              <Timeline visits={visits} />
+            </TabbedSection>
+            {/* <TabbedSection title={t("Medical Background")} icon={accountClock}>
               {background ? (
                 <div>background</div>
               ) : (
@@ -226,7 +265,7 @@ const Patient = () => {
                 </DivButton>
                 // <></>
               )}
-            </TabbedSection>
+            </TabbedSection> */}
           </Col>
         </Row>
         {/* <Row>

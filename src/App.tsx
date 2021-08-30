@@ -8,8 +8,8 @@ import * as Realm from "realm-web";
 import RealmApp from "./realm";
 
 import Home from "./Screens/Home";
-import Login from "./Screens/Login";
-import Register from "./Screens/Register";
+// import Login from "./Screens/Login";
+// import Register from "./Screens/Register";
 import Dashboard from "./Screens/Dashboard";
 import Patients from "./Screens/Patients";
 import Patient from "./Screens/Patient";
@@ -41,7 +41,8 @@ const App = () => {
       // Authenticate the user
       const user = await RealmApp.logIn(credentials);
       // `App.currentUser` updates to match the logged in user
-      if (RealmApp.currentUser && user.id === RealmApp.currentUser.id) setUser(user);
+      if (RealmApp.currentUser && user.id === RealmApp.currentUser.id)
+        setUser(user);
     } catch (err) {
       console.error("Failed to log in", err);
     }
@@ -66,8 +67,8 @@ const App = () => {
       <div className={`App ${darkMode ? "dark" : "light"}`}>
         <BrowserRouter>
           <Switch>
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/register" component={Register} />
+            {/* <Route exact path="/login" component={Login} /> */}
+            {/* <Route exact path="/register" component={Register} /> */}
 
             <StandardLayout>
               <Route exact path="/" component={Dashboard} />

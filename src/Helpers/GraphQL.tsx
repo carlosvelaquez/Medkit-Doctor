@@ -50,7 +50,7 @@ export const useGraphQL = () => {
   };
 };
 
-export const useQueryResult = (query : DocumentNode) => {
+export const useQueryResult = (query : DocumentNode) : {loading: boolean, data?: any, error?: Error} => {
   const [result, setResult] = useState({ loading: true });
   const [error, setError] = useState();
 
@@ -58,14 +58,16 @@ export const useQueryResult = (query : DocumentNode) => {
 
   const runQuery = async () => {
     try {
-      setResult(await client.query({ query }));
+      if (client) {
+        setResult(await client.query({ query }));
+      }
     } catch (e) {
       setError(e);
     }
   };
 
   useEffect(() => {
-    runQuery();
+    if (client) runQuery();
   }, [query]);
 
   return { ...result, error };

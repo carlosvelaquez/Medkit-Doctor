@@ -1,22 +1,31 @@
 import React from "react";
 
 type DivButtonProps = {
-  id? : string,
-  className? : string,
-  action?: () => void,
-  allowPropagation? : boolean,
-  children?: any
+  id?: string;
+  className?: string;
+  style?: object;
+  action?: () => void;
+  allowPropagation?: boolean;
+  children?: any;
 };
 
-export const DivButton = ({ id, className, allowPropagation = false, action, children } : DivButtonProps) => {
-
+export const DivButton = ({
+  id,
+  className,
+  style,
+  allowPropagation = false,
+  action,
+  children,
+}: DivButtonProps) => {
   const act = () => {
     if (action) action();
   };
 
   return (
     <div
-      style={{ userSelect: "none", cursor: "pointer" }}
+      id={id}
+      className={className}
+      style={{ ...style, userSelect: "none", cursor: "pointer" }}
       role="button"
       tabIndex={0}
       onClick={(e) => {
@@ -30,7 +39,9 @@ export const DivButton = ({ id, className, allowPropagation = false, action, chi
           act();
         }
       }}
-    >{children}</div>
+    >
+      {children}
+    </div>
   );
 };
 

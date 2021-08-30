@@ -1,5 +1,5 @@
-@import "../../Styles/mixins";
-@import "../../Styles/variables";
+@import "../../Styles/globals";
+@import "../../Styles/globals";
 
 .loading-screen {
   @include flex-centered;

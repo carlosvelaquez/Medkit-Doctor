@@ -7,7 +7,7 @@ import "./Styles/JumboButton.scss";
 type JumboButtonProps = {
   action: () => void,
   text: string,
-  icon: IconifyIcon,
+  icon: object,
   variant: string,
   hidden: boolean,
 };

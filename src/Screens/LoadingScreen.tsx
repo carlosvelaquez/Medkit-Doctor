@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 
 import "./Styles/LoadingScreen.scss";
 
-const LoadingScreen = ({ error }) => {
+const LoadingScreen = () => {
   const { t } = useTranslation();
 
   return (

@@ -20,7 +20,10 @@ import "./Styles/Login.scss";
 import DivButton from "../Components/DivButton";
 
 const Login = () => {
-  const location = useLocation();
+  const location = useLocation<{
+    referrer: string
+  }>();
+
   const history = useHistory();
 
   const user = useContext(UserContext);
@@ -70,9 +73,9 @@ const Login = () => {
         <div className="login-form">
           <h1>{t("Login Title")}</h1>
           <div className="social-login-container">
-            <GoogleLoginButton />
+            <GoogleLoginButton action={() => console.log("OLO")}/>
             <div className="social-login-spacer" />
-            <FacebookLoginButton />
+            <FacebookLoginButton action={() => console.log("OLO")}/>
           </div>
           <div className="login-form-spacer">
             <p>{t("Use Login Credentials")}</p>

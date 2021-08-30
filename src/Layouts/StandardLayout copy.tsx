@@ -1,10 +1,4 @@
-import React, {
-  useContext,
-  useState,
-  useEffect,
-  useCallback,
-  useRef,
-} from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { useLocation, useHistory, Redirect } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
@@ -57,10 +51,11 @@ const NavLink = ({ to, text, icon, exact = false, callback }: NavLinkProps) => {
 
 type NavigatorProps = {
   visible: boolean;
-  hideNavigator: (noDelay?: boolean) => void;
+  delay: boolean;
+  setVisible: (visible: boolean, delay?: boolean) => void;
 };
 
-const Navigator = ({ visible = false, hideNavigator }: NavigatorProps) => {
+const Navigator = ({ visible = false, delay, setVisible }: NavigatorProps) => {
   const { t } = useTranslation();
 
   const user = useContext(UserContext);
@@ -70,10 +65,13 @@ const Navigator = ({ visible = false, hideNavigator }: NavigatorProps) => {
     <>
       <DivButton
         className={`navigator-overlay ${visibleClass}`}
-        action={() => hideNavigator(true)}
+        action={() => setVisible(false, false)}
       />
-      <div id="navigator">
-        <DivButton className="back-button" action={() => hideNavigator(true)}>
+      <div className={`navigator ${visibleClass} ${!delay ? "no-delay" : ""}`}>
+        <DivButton
+          className="back-button"
+          action={() => setVisible(false, false)}
+        >
           <Icon icon={arrowLeft} />
         </DivButton>
         <NavLink
@@ -81,7 +79,7 @@ const Navigator = ({ visible = false, hideNavigator }: NavigatorProps) => {
           icon={viewDashboard}
           to="/"
           exact
-          callback={() => hideNavigator()}
+          callback={() => setVisible(false)}
         />
         <div className="separator" />
         <NavLink
@@ -89,32 +87,32 @@ const Navigator = ({ visible = false, hideNavigator }: NavigatorProps) => {
           icon={accountIcon}
           to={`/patients`}
           // to="/patients"
-          callback={() => hideNavigator()}
+          callback={() => setVisible(false)}
         />
         <NavLink
           text={t("Appointments")}
           icon={calendarIcon}
           to="/appointments"
-          callback={() => hideNavigator()}
+          callback={() => setVisible(false)}
         />
         <NavLink
           text={t("Accounting")}
           icon={financeIcon}
           to="/accounting"
-          callback={() => hideNavigator()}
+          callback={() => setVisible(false)}
         />
         <div className="separator" />
         <NavLink
           text={t("Institution")}
           icon={hospitalBox}
           to="/institution"
-          callback={() => hideNavigator()}
+          callback={() => setVisible(false)}
         />
         <NavLink
           text={t("System Settings")}
           icon={cogIcon}
           to="/settings"
-          callback={() => hideNavigator()}
+          callback={() => setVisible(false)}
         />
         <div style={{ flex: "1" }} />
         <DivButton className="navlink" action={() => user.logOut()}>
@@ -133,83 +131,15 @@ type StandardLayoutProps = {
 const StandardLayout = ({ children }: StandardLayoutProps) => {
   const { t } = useTranslation();
 
-  const [navState, setNavState] = useState("hidden");
+  const [navVisible, setNavVisible] = useState(false);
+  const [delay, setDelay] = useState(true);
   const [screenName, setScreenName] = useState("Screen Name");
   const [padding, setPadding] = useState(true);
-  const [cardScroll, setCardScroll] = useState<number | undefined>(0);
-
-  const contentContainerRef = useRef<HTMLDivElement>(null);
+  const [menuPos, setMenuPos] = useState(0);
+  const [lastPos, setLastPos] = useState(0);
 
   const user = useContext(UserContext);
   const location = useLocation();
-
-  const navVisible = navState === "shown";
-
-  const hideNavigator = useCallback(
-    (noDelay = false) => {
-      console.log("hiding nav");
-
-      if (noDelay) setNavState("hidden");
-      else setNavState("delayedHidden");
-    },
-    [setNavState]
-  );
-
-  useEffect(() => {
-    if (navVisible)
-      document.querySelectorAll(".navlink")?.forEach((element, index) => {
-        element.animate(
-          [
-            {
-              opacity: 0,
-              left: "-50px",
-            },
-            {
-              opacity: 1,
-              left: "0px",
-            },
-          ],
-          {
-            duration: 500,
-            fill: "both",
-            easing: "cubic-bezier(0.25, 1, 0.5, 1)",
-            delay: index * 25,
-          }
-        );
-      });
-
-    const showKeyframes = [
-      { transform: "translateX(0px)" },
-      { transform: "translateX(250px)" },
-    ];
-
-    const hideKeyframes = [
-      { transform: "translateX(250px)" },
-      { transform: "translateX(0px)" },
-    ];
-
-    const timing: KeyframeAnimationOptions = {
-      duration: 300,
-      easing: "cubic-bezier(0.33, 1, 0.68, 1)",
-      delay: navState === "delayedHidden" ? 150 : 0,
-      fill: "both",
-    };
-
-    document
-      .getElementById("navigator")
-      ?.animate(navVisible ? showKeyframes : hideKeyframes, timing);
-
-    document
-      .getElementById("page-container")
-      ?.animate(navVisible ? showKeyframes : hideKeyframes, timing);
-  }, [navState]);
-
-  const calcCardOpacity = useCallback((currScroll) => {
-    if (currScroll <= 0) return "1px";
-    if (currScroll >= 50) return "2px";
-
-    return `${1 - currScroll / 50}px`;
-  }, []);
 
   if (!user)
     // if (false)
@@ -226,31 +156,46 @@ const StandardLayout = ({ children }: StandardLayoutProps) => {
   return (
     <LayoutContext.Provider value={{ setScreenName, setPadding }}>
       <div className="standard-layout-container">
-        <Navigator visible={navVisible} hideNavigator={hideNavigator} />
+        <Navigator
+          visible={navVisible}
+          delay={delay}
+          setVisible={(vis, dly = true) => {
+            setNavVisible(vis);
+            setDelay(dly);
+          }}
+        />
 
-        <div id="page-container" className={`${padding ? "padded" : ""}`}>
+        <div
+          className={`page-container ${navVisible ? "offset" : ""} ${
+            padding ? "padded" : ""
+          } ${!delay ? "no-delay" : ""}`}
+          // onScroll={(e) => {
+          //   const nPos = e.target.scrollTop;
+          //   setLastPos((lPos) => {
+          //     // scroll down
+          //     if (nPos > lPos) {
+          //       setMenuPos(Math.max(-70, menuPos - (nPos - lPos)));
+          //     } else if (lPos > nPos) {
+          //       // scroll up
+          //       setMenuPos(Math.min(0, menuPos + (lPos - nPos)));
+          //     }
+
+          //     return nPos;
+          //   });
+          // }}
+        >
           <DivButton
-            className={`menu-button`}
-            action={() => setNavState("shown")}
+            className={`menu-button ${navVisible ? "offset" : ""} ${
+              !delay ? "no-delay" : ""
+            }`}
+            style={{ marginTop: menuPos }}
+            action={() => setNavVisible(true)}
           >
             <Icon icon={menuIcon} />
             {t(screenName)}
           </DivButton>
 
-          <div
-            className="content-container"
-            ref={contentContainerRef}
-            // onScroll={() => {
-            //   console.log(contentContainerRef.current?.style.opacity);
-
-            //   if (contentContainerRef.current)
-            //     contentContainerRef.current.style.opacity = calcCardOpacity(
-            //       contentContainerRef.current?.scrollTop
-            //     );
-            // }}
-          >
-            <div className="card-background">{children}</div>
-          </div>
+          <div className="content">{children}</div>
         </div>
       </div>
     </LayoutContext.Provider>
