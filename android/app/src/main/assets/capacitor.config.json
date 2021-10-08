@@ -1,0 +1,6 @@
+{
+	"appId": "com.lambda.medkit",
+	"appName": "Medkit Doctor",
+	"webDir": "build",
+	"bundledWebRuntime": false
+}

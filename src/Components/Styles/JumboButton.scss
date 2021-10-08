@@ -1,0 +1,64 @@
+@import "../../Styles/globals";
+
+.jumbo-button {
+  flex: 1;
+  position: relative;
+
+  width: 100%;
+  height: 100px;
+
+  max-width: 450px;
+  padding: 25px;
+  margin-bottom: 10px;
+  margin-right: 20px;
+
+  border-radius: 20px;
+  color: #fff;
+
+  font: bold 20px Raleway;
+  transition: 350ms;
+  opacity: 1;
+
+  overflow: hidden;
+}
+
+.jumbo-button:hover {
+  //   font: bold 21px Montserrat;
+  transform: scale(1.025);
+}
+
+.jumbo-button > .background {
+  position: absolute;
+  top: 0;
+  left: 0%;
+
+  width: 200%;
+  height: 100%;
+
+  transition: 350ms;
+}
+
+.jumbo-button:hover > .background {
+  left: -100%;
+}
+
+.jumbo-button > .text {
+  position: relative;
+  z-index: 2;
+}
+
+.jumbo-button > svg {
+  position: absolute;
+  bottom: calc(50% - 37.5%);
+  right: 10%;
+
+  height: 75%;
+  width: auto;
+
+  opacity: 0.2;
+  transition: 150ms;
+}
+
+.jumbo-button.hidden {
+  display: none;
+}

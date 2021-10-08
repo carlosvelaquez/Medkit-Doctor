@@ -1,0 +1,9 @@
+@import "../../Styles/globals";
+@import "../../Styles/globals";
+
+.loading-screen {
+  @include flex-centered;
+  @include full-size;
+
+  height: 100vh;
+}

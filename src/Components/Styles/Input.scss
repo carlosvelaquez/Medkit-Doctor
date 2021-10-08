@@ -1,0 +1,53 @@
+@import "../../Styles/globals";
+@import "../../Styles/globals";
+
+.input {
+  font-size: 1rem;
+  padding: 0.5rem 0.75rem;
+  border: none;
+  border-bottom: 2px solid #0002;
+  transition: 150ms;
+  box-shadow: 0 0 0 var(--primary-color);
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+.icon-input {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 10px;
+
+  display: flex;
+  align-items: center;
+
+  transition: 250ms;
+  border-bottom: 2px solid #0002;
+}
+
+.icon-input > .icon {
+  margin-right: 20px;
+  color: #424242;
+}
+
+.icon-input > input {
+  font: 1rem Raleway;
+  border: none;
+  flex: 1;
+}
+
+.icon-input.focused {
+  border-color: var(--primary-color);
+}
+
+.icon-input.error {
+  border-color: var(--danger-color);
+}
+
+.icon-input > input:focus {
+  outline: none;
+}
