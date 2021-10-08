@@ -8,7 +8,7 @@ import React, {
 import { useLocation, useHistory, Redirect } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-import { Icon, IconifyIcon } from "@iconify/react";
+import { Icon } from "@iconify/react";
 import viewDashboard from "@iconify-icons/mdi/view-dashboard";
 import accountIcon from "@iconify-icons/mdi/account";
 import calendarIcon from "@iconify-icons/mdi/calendar";
